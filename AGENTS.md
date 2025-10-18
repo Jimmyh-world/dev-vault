@@ -398,16 +398,25 @@ dev-vault/
 
 <!-- PROJECT_SPECIFIC START: KNOWN_ISSUES -->
 ### 🔴 Critical Issues
-None currently - project is in planning phase.
+None - Vault operational and security-validated.
 
 ### 🟡 Important Issues
-1. Need to decide between Vault Auth vs Supabase Auth for web applications
-2. GitHub repository not yet created (https://github.com/Jimmyh-world/dev-vault)
-3. Directory structure (docs/specs, docs/architecture, docs/checkpoints) not yet created
+1. Root token still active (should be revoked after Phase 2, use admin user token)
+2. Test secrets need replacement with production Cardano keys (when ready)
+3. Backup automation not yet configured (manual backups currently)
+4. Monitoring not yet integrated with Prometheus/Grafana
 
 ### 📝 Technical Debt
-1. Research documents need to be converted to actionable RED phase specs (estimated: 4-6 hours)
-2. Need to create deployment checklist and validation criteria
+1. Phase 3 planning needed (production readiness vs advanced features)
+2. Documentation for restoring from backup needs testing
+3. External access via Cloudflare Tunnel not yet configured (local network only)
+4. Vault Auth vs Supabase Auth decision deferred (use Vault for now)
+
+### ✅ Resolved Issues (2025-10-18)
+- ~~GitHub repository not yet created~~ → Created: https://github.com/Jimmyh-world/dev-vault
+- ~~Directory structure not created~~ → Created: docs/specs, docs/checkpoints
+- ~~Research needs conversion to specs~~ → Phase 1 & 2 specs created and executed
+- ~~Deployment validation criteria needed~~ → Created and validated in Phase 1 & 2
 <!-- PROJECT_SPECIFIC END: KNOWN_ISSUES -->
 
 ## Project-Specific Guidelines
