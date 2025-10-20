@@ -1,7 +1,7 @@
 # dev-vault
 
 **Status**: OPERATIONAL - 70% Complete
-**Last Updated**: 2025-10-18
+**Last Updated**: 2025-10-20
 
 ## Overview
 
@@ -42,6 +42,8 @@ dev-vault/
 │       └── PHASE-2-CHECKPOINT-APPROVAL.md
 ├── devlab-vault-architecture.md     # Research document
 ├── vault-auth-guide.md              # Authentication strategy research
+├── NEXT-SESSION-START-HERE.md       # Quick context for next session
+├── VAULT-USAGE-GUIDE.md             # Container integration & usage patterns
 ├── AGENTS.md                        # AI assistant guidelines
 ├── CLAUDE.md                        # Quick reference for Claude
 ├── JIMMYS-WORKFLOW.md               # RED→GREEN→CHECKPOINT workflow system
@@ -152,6 +154,13 @@ docker exec -e VAULT_TOKEN="$VAULT_TOKEN" vault \
 
 ## Getting Started
 
+### Quick Start
+
+**New to this project?** Start here:
+1. **NEXT-SESSION-START-HERE.md** - Quick context and current status
+2. **VAULT-USAGE-GUIDE.md** - How to use Vault for application secrets
+3. **AGENTS.md** - Complete development guidelines
+
 ### For AI Assistants
 
 Start by reading **AGENTS.md** for complete project context and guidelines.
@@ -196,6 +205,10 @@ Start by reading **AGENTS.md** for complete project context and guidelines.
 ---
 
 ## Resources
+
+**Quick Start Guides:**
+- **NEXT-SESSION-START-HERE.md**: Quick context between sessions
+- **VAULT-USAGE-GUIDE.md**: How to use Vault for app secrets, container integration patterns
 
 **Project Documentation:**
 - AGENTS.md: AI assistant guidelines
