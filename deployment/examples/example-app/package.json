@@ -1,0 +1,12 @@
+{
+  "name": "vault-example-app",
+  "version": "1.0.0",
+  "description": "Example app demonstrating Vault integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0"
+  }
+}

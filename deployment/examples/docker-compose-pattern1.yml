@@ -1,0 +1,49 @@
+# Example: Container Integration Pattern 1 (Pre-Start Script)
+# This demonstrates how to fetch secrets before starting your application
+# Created: 2025-10-21
+
+version: '3.8'
+
+services:
+  example-app:
+    build:
+      context: ./example-app
+      dockerfile: Dockerfile
+    image: vault-example-app:latest
+    container_name: vault-example-app
+
+    # Environment variables for Vault authentication
+    environment:
+      - VAULT_ADDR=http://192.168.68.100:8200
+      - VAULT_ROLE_ID=${VAULT_ROLE_ID}          # Inject via .env or CI/CD
+      - VAULT_SECRET_ID=${VAULT_SECRET_ID}      # Inject via .env or CI/CD (KEEP SECRET!)
+      - VAULT_SECRET_PATH=secret/data/apps/example/database
+
+    # Mount the fetch script
+    volumes:
+      - /home/jimmyb/dev-vault/deployment/scripts/fetch-secrets.sh:/usr/local/bin/fetch-secrets.sh:ro
+      - ./example-app:/app
+
+    working_dir: /app
+
+    # Entrypoint: Fetch secrets, then start app
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        echo "=== Fetching secrets from Vault ==="
+        fetch-secrets.sh env > /app/.env
+
+        echo "=== Secrets loaded, starting application ==="
+        cat /app/.env  # Optional: Show loaded vars (remove in production!)
+
+        # Start your actual application
+        # exec node server.js
+        echo "App would start here. Sleeping for demo..."
+        tail -f /dev/null
+
+    networks:
+      - vault-demo
+
+networks:
+  vault-demo:
+    driver: bridge
