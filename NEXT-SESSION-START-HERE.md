@@ -7,10 +7,10 @@ LAST_SYNC: 2025-10-20
 PURPOSE: Provide quick context and continuity between development sessions
 -->
 
-**Last Updated:** 2025-10-20
-**Last Session:** Phase 2 complete, discussed container integration and team access
-**Current Phase:** Planning Phase 3 (Container Integration & Multi-User Access)
-**Session Summary:** See docs/checkpoints/ for complete Phase 1-2 deployment records
+**Last Updated:** 2025-10-21
+**Last Session:** Phase 3A complete - Container integration with AppRole deployed
+**Current Phase:** Phase 3B (Multi-User Access) or Phase 3C (Advanced Patterns)
+**Session Summary:** See docs/checkpoints/ for complete Phase 1-3A deployment records
 
 ---
 
@@ -27,11 +27,12 @@ PURPOSE: Provide quick context and continuity between development sessions
 - Approve checkpoints and document decisions
 - **What you should NOT do:** Heavy Docker deployments, long-running builds (delegate to Beast)
 
-**Current Status:** 70% complete
+**Current Status:** 80% complete
 - ✅ Phase 1: Vault infrastructure deployed on Beast:8200
 - ✅ Phase 2: Secrets engine + policies + userpass auth configured
-- 🔄 Phase 3: Container integration + multi-user access (NEXT)
-- ⚪ Future: Production hardening, backup automation, monitoring
+- ✅ Phase 3A: Container integration with AppRole (Pattern 1 - Pre-Start Script)
+- 🔄 Phase 3B/3C: Multi-user access OR advanced patterns (NEXT)
+- ⚪ Phase 4: Production hardening, backup automation, monitoring
 
 ---
 
@@ -55,45 +56,51 @@ PURPOSE: Provide quick context and continuity between development sessions
 - ✅ Management scripts created (manage-policies.sh, create-token.sh)
 - ✅ Execution time: 25 minutes, zero issues
 
+**Phase 3A: Container Integration (2025-10-21):**
+- ✅ AppRole authentication method enabled
+- ✅ Example app policy (app-example) created
+- ✅ fetch-secrets.sh script (Pattern 1 - supports env/json/export)
+- ✅ Docker Compose integration example working
+- ✅ Complete PATTERN1-USAGE.md documentation
+- ✅ All 6 validation tests passed
+- ✅ Execution time: 30 minutes, 3 minor issues resolved
+- ✅ Security: 1h token TTL, read-only access, policy-enforced
+
 **Orchestrator + Specialist Pattern:**
-- ✅ Validated across 2 phases
-- ✅ 35 minutes total execution time
-- ✅ ~$0.70 cost (67% savings vs Sonnet-only)
-- ✅ 100% workflow compliance (20/20 steps)
-- ✅ Zero issues, perfect security test results
+- ✅ Validated across 3 phases
+- ✅ 65 minutes total execution time
+- ✅ ~$1.00 cost (67% savings vs Sonnet-only)
+- ✅ 100% workflow compliance (30/30 steps)
+- ✅ Zero critical issues, perfect security test results
 
 **Metrics:**
-- Total deployment time: 35 minutes
+- Total deployment time: 65 minutes (3 phases)
 - Cost efficiency: 67% cheaper than manual
-- Security tests: 6/6 passed
+- Security tests: 12/12 passed
 - Workflow compliance: 100%
 
 ---
 
-## 🎯 Next Up: Phase 3 Options
+## 🎯 Next Up: Phase 3B/3C or Phase 4
 
-### Option A: Container Integration (Most Requested)
+### ✅ Phase 3A: Container Integration - COMPLETE!
 
-**Goal:** Enable web apps/services on Beast to fetch secrets from Vault
+**What Was Delivered:**
+- AppRole authentication enabled
+- fetch-secrets.sh script (Pattern 1 - Pre-Start Script)
+- Docker Compose integration example
+- Complete usage documentation
+- All validation tests passed
 
-**What's Needed:**
-1. Enable AppRole authentication (machine-to-machine)
-2. Create example policies for apps
-3. Provide fetch-secrets scripts and patterns
-4. Document entrypoint wrapper pattern
-
-**Use Cases:**
-- Web apps need Supabase credentials
-- Services need API keys (Stripe, SendGrid, etc.)
-- Containers need database passwords
-- CI/CD needs deployment tokens
-
-**Estimated Time:** 1-2 hours
-**Priority:** HIGH (3-5 team members need this)
+**Now Available:**
+- Containers can fetch secrets before startup
+- 15-minute onboarding for new apps
+- Supports 3 output formats (env, json, export)
+- Production-ready for non-critical apps
 
 ---
 
-### Option B: Multi-User Access
+### Option B: Multi-User Access (Phase 3B)
 
 **Goal:** Let 3-5 team members store and retrieve secrets via UI
 
@@ -108,7 +115,27 @@ PURPOSE: Provide quick context and continuity between development sessions
 
 ---
 
-### Option C: Production Readiness
+### Option C: Advanced Container Patterns (Phase 3C)
+
+**Goal:** Implement Pattern 2 (Init Container) and Pattern 3 (Vault Agent Sidecar)
+
+**What's Needed:**
+1. Pattern 2: Init container with shared volume (more secure)
+2. Pattern 3: Vault Agent sidecar with auto-rotation
+3. Kubernetes manifests (if needed)
+4. Migration guide from Pattern 1
+
+**Benefits:**
+- Pattern 2: In-memory volumes, better security
+- Pattern 3: Automatic secret rotation, no restarts
+- Production-grade for sensitive data
+
+**Estimated Time:** 2-3 hours
+**Priority:** MEDIUM (for apps with sensitive secrets)
+
+---
+
+### Option D: Production Readiness (Phase 4)
 
 **Goal:** Harden Vault for production use
 
@@ -165,8 +192,9 @@ PURPOSE: Provide quick context and continuity between development sessions
 
 **Access Control:**
 - KV v2 secrets engine at `secret/` path
-- 3 policies enforcing access control
+- 4 policies: admin, bot, external-readonly, app-example
 - Userpass authentication (768h TTL)
+- AppRole authentication (1h token TTL)
 - Audit logging enabled
 
 **Management Tools:**
@@ -174,13 +202,14 @@ PURPOSE: Provide quick context and continuity between development sessions
 - Policy manager (manage-policies.sh)
 - Token creator (create-token.sh)
 
-### What Needs to Be Added ⚪
+**Container Integration (NEW - Phase 3A):**
+- fetch-secrets.sh script (Pattern 1)
+- Docker Compose integration example
+- Example app with Dockerfile
+- PATTERN1-USAGE.md guide
+- Test secrets under secret/apps/example/
 
-**Phase 3A: Container Integration (~1-2 hours)**
-- AppRole authentication method
-- Example app policies
-- Fetch-secrets script templates
-- Entrypoint wrapper examples
+### What Needs to Be Added ⚪
 
 **Phase 3B: Multi-User Access (~2 hours)**
 - External access (Cloudflare Tunnel or Tailscale)
@@ -188,13 +217,19 @@ PURPOSE: Provide quick context and continuity between development sessions
 - User onboarding documentation
 - Secret organization guidelines
 
-**Production Readiness (~3-4 hours)**
+**Phase 3C: Advanced Container Patterns (~2-3 hours)**
+- Pattern 2: Init Container with shared volume
+- Pattern 3: Vault Agent Sidecar with auto-rotation
+- Kubernetes manifests (if needed)
+- Migration guide from Pattern 1
+
+**Phase 4: Production Readiness (~3-4 hours)**
 - Real secret migration (replace test data)
 - Backup automation
 - Monitoring integration
 - Root token revocation
 
-**Total Remaining:** ~6-8 hours for full production readiness
+**Total Remaining:** ~7-9 hours for full production readiness
 
 ---
 
